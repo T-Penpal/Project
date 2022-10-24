@@ -50,17 +50,17 @@ public class Board {
 	@JoinColumn(name = "category_name")
 	private CategoryList category;
 	
+	// 장유란 writer 자료형 Integer -> Member 변경했습니다.
 	@ManyToOne(targetEntity = Member.class)
 	@JoinColumn(name = "member_id")
-	private Integer writer;
+	private Member writer;
 	
 	private LocalDateTime createDate;
 	
 	@OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
 	private List<Answer> answerList;
 	
-	@ManyToOne
-    private Member author;
+	
 
 	
 }

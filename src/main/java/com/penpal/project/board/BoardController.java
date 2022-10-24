@@ -29,6 +29,7 @@ import com.penpal.project.member.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
+// 장유란 2022-10-24 Board기능
 @RequestMapping("/board")
 @RequiredArgsConstructor
 @Controller
@@ -40,6 +41,7 @@ public class BoardController {
     private final LocationListRepository locationListRepository;
     private final CountryListRepository countryListRepository;
 
+    
     @RequestMapping("/list")
     public String boardList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<Board> paging = this.boardService.getList(page);
@@ -85,6 +87,8 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    // 장유란 2022-10-24
+    // CategoryList에 저장된 데이터를 List로 html에 보내주는 기능입니다
     @ModelAttribute("category")
     public List<CategoryList> categoryList() {
         List<CategoryList> categoryLists = categoryListRepository.findAll();
@@ -110,7 +114,7 @@ public class BoardController {
         return countryLists;
     }
 
-// h2 카테고리 추가(위에 세개 주석처리 후 사용)
+// h2 카테고리 추가(@ModelAttribute 주석처리 후 1회 사용)
 //    @ModelAttribute("category")
 //    public CategoryList categoryList2(){
 //        CategoryList categoryList = new CategoryList();

@@ -52,8 +52,7 @@ public class BoardService {
         board.setLocation(locationListRepository.findByName(location));
         board.setCountry(countryListRepository.findByName(country));
         board.setCreateDate(LocalDateTime.now());
-        board.setAuthor(member);
-        System.out.println("no1");
+        board.setWriter(member); 
         
         this.boardRepository.save(board);
     }
