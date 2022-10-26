@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>#Penpal</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="/js/main.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="wrap">
+        <header id="header" class="potion">
+            <h1 class="header_logo">
+                <a href="/">#Penpal</a>
+            </h1>
+            <div class="header_navi">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/users">Users</a></li>
+                    <li><a href="/community">Community</a></li>
+                </ul>
+            </div>
+            <div class="header_language">
+                <select name="language" id="language" th:field="*{language}">                        
+                    <option value="" selected>Languages</option>
+                    <option th:each="language : ${language}" th:value="${language}" th:text="${language.name}"></option>
+                </select>
+            </div>
+            <div class="header_login">
+                <a href="/member/login">Login</a>
+            </div>
+        </header>
+        <section id="community_detail_section01">
+            <div class="community_text">
+                <h1>Community</h1>
+                <h3>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. <br>
+                    Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form.
+                </h3>
+            </div>
+            <div class="community_detail_view">
+                <h1 class="board_title">Title</h1>
+                <div class="board_content">
+
+                </div>
+                <div class="board_writer">
+                    <div class="board_writer_profile">
+
+                    </div>
+                    <div class="board_writer_name">
+
+                    </div>
+                    <div class="board_writer_country">
+                        
+                    </div>
+                    <div class="country_icon">
+                            
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
