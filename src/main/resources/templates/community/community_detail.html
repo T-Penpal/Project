@@ -61,7 +61,7 @@
 						<span th:if="${answer.writer != null}" th:text="${answer.writer.username}"></span></a>
 
 						<!-- 수정폼 -->
-						<form th:object="${answerForm}" method="post" style="display: block; margin-left:200px;">
+						<form class="answer_modify" th:action="@{|/answer/modify/${answer.id}|}"  th:object="${answerForm}" method="post" style="display: block; margin-left:200px;">
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 							<div class="mb-3">
 								<label for="content" class="form-label">내용</label>
@@ -82,7 +82,7 @@
 						<!-- 수정버튼, 차후에 권한부여 -->
 						<div class="answer_option_section">
 							<!-- th:href="@{|/answer/modify/${answer.id}|}" -->
-							<a class="answer_modify" th:text="Modify"></a>
+							<a class="answer_modify" th:text="Modify" ></a>
 
 							<a class="answer_delete" href="javascript:void(0);"
 								th:data-uri="@{|/answer/delete/${answer.id}|}" th:text="Delete"></a>

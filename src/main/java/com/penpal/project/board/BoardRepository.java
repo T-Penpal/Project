@@ -19,16 +19,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 			+ "from Board q "
 			+ "    left outer join Member u1 "
 			+ "	       on q.writer = u1 "
-			+ "    left outer join Answer a "
-			+ "        on a.board = q "
-			+ "    left outer join Member u2 "
-			+ "        on a.writer = u2 "
 			+ "where"
 			+ "	   q.title like %:kw% or "
-			+ "	   q.content like %:kw% or "
-			+ "	   u1.memberId like %:kw% or "
-			+ "	   a.content like %:kw% or "
-			+ "	   u2.memberId like %:kw%"
+			+ "	   q.content like %:kw%"
 			)
 	Page<Board> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
 	
@@ -37,16 +30,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 			+ "from Board q "
 			+ "    left outer join Member u1 "
 			+ "	       on q.writer = u1 "
-			+ "    left outer join Answer a "
-			+ "        on a.board = q "
-			+ "    left outer join Member u2 "
-			+ "        on a.writer = u2 "
-			+ "where"
-			+ "	   (q.title like %:kw% or "
-			+ "	   q.content like %:kw% or "
-			+ "	   u1.memberId like %:kw% or "
-			+ "	   a.content like %:kw% or "
-			+ "	   u2.memberId like %:kw%) and "
+			+ "where("
+			+ "	   q.title like %:kw% or "
+			+ "	   q.content like %:kw%) and "
 			+ "	   q.location.name like %:location% and "
 			+ "	   q.country.name like %:country% "
 			)
@@ -61,16 +47,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 			+ "from Board q "
 			+ "    left outer join Member u1 "
 			+ "	       on q.writer = u1 "
-			+ "    left outer join Answer a "
-			+ "        on a.board = q "
-			+ "    left outer join Member u2 "
-			+ "        on a.writer = u2 "
-			+ "where"
-			+ "	   (q.title like %:kw% or "
-			+ "	   q.content like %:kw% or "
-			+ "	   u1.memberId like %:kw% or "
-			+ "	   a.content like %:kw% or "
-			+ "	   u2.memberId like %:kw%) and "
+			+ "where("
+			+ "	   q.title like %:kw% or "
+			+ "	   q.content like %:kw%) and "
 			+ "	   q.country.name like %:country% "
 			)
 	Page<Board> findAllByKeyword(
@@ -83,16 +62,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 			+ "from Board q "
 			+ "    left outer join Member u1 "
 			+ "	       on q.writer = u1 "
-			+ "    left outer join Answer a "
-			+ "        on a.board = q "
-			+ "    left outer join Member u2 "
-			+ "        on a.writer = u2 "
-			+ "where"
-			+ "	   (q.title like %:kw% or "
-			+ "	   q.content like %:kw% or "
-			+ "	   u1.memberId like %:kw% or "
-			+ "	   a.content like %:kw% or "
-			+ "	   u2.memberId like %:kw%) and "
+			+ "where("
+			+ "	   q.title like %:kw% or "
+			+ "	   q.content like %:kw%) and "
 			+ "	   q.location.name like %:location%"
 			)
 	Page<Board> findAllByKeywordLocatuin(
@@ -106,16 +78,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 			+ "from Board q "
 			+ "    left outer join Member u1 "
 			+ "	       on q.writer = u1 "
-			+ "    left outer join Answer a "
-			+ "        on a.board = q "
-			+ "    left outer join Member u2 "
-			+ "        on a.writer = u2 "
-			+ "where"
-			+ "	   (q.title like %:kw% or "
-			+ "	   q.content like %:kw% or "
-			+ "	   u1.memberId like %:kw% or "
-			+ "	   a.content like %:kw% or "
-			+ "	   u2.memberId like %:kw%) and "
+			+ "where("
+			+ "	   q.title like %:kw% or "
+			+ "	   q.content like %:kw%) and "
 			+ "	   q.category.name like %:category%"
 			)
 	Page<Board> findAllByKeywordCategory(
@@ -128,16 +93,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 			+ "from Board q "
 			+ "    left outer join Member u1 "
 			+ "	       on q.writer = u1 "
-			+ "    left outer join Answer a "
-			+ "        on a.board = q "
-			+ "    left outer join Member u2 "
-			+ "        on a.writer = u2 "
-			+ "where"
-			+ "	   (q.title like %:kw% or "
-			+ "	   q.content like %:kw% or "
-			+ "	   u1.memberId like %:kw% or "
-			+ "	   a.content like %:kw% or "
-			+ "	   u2.memberId like %:kw%) and "
+			+ "where("
+			+ "	   q.title like %:kw% or "
+			+ "	   q.content like %:kw%) and "
 			+ "	   q.country.name like %:country% and "
 			+ "	   q.category.name like %:category%"
 			)
@@ -148,20 +106,13 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 			@Param("category") String category);
 
 	// {category}/search/select location 
-		@Query(   "select distinct q "
-				+ "from Board q "
-				+ "    left outer join Member u1 "
-				+ "	       on q.writer = u1 "
-				+ "    left outer join Answer a "
-				+ "        on a.board = q "
-				+ "    left outer join Member u2 "
-				+ "        on a.writer = u2 "
-				+ "where"
-				+ "	   (q.title like %:kw% or "
-				+ "	   q.content like %:kw% or "
-				+ "	   u1.memberId like %:kw% or "
-				+ "	   a.content like %:kw% or "
-				+ "	   u2.memberId like %:kw%) and "
+	@Query(   "select distinct q "
+			+ "from Board q "
+			+ "    left outer join Member u1 "
+			+ "	       on q.writer = u1 "
+			+ "where("
+			+ "	   q.title like %:kw% or "
+			+ "	   q.content like %:kw%) and "
 				+ "	   q.location.name like %:location% and "
 				+ "	   q.category.name like %:category%"
 				)
@@ -172,29 +123,22 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 				@Param("category") String category);
 
 		// {category}/search/select location 
-				@Query(   "select distinct q "
-						+ "from Board q "
-						+ "    left outer join Member u1 "
-						+ "	       on q.writer = u1 "
-						+ "    left outer join Answer a "
-						+ "        on a.board = q "
-						+ "    left outer join Member u2 "
-						+ "        on a.writer = u2 "
-						+ "where"
-						+ "	   (q.title like %:kw% or "
-						+ "	   q.content like %:kw% or "
-						+ "	   u1.memberId like %:kw% or "
-						+ "	   a.content like %:kw% or "
-						+ "	   u2.memberId like %:kw%) and "
-						+ "	   q.location.name like %:location% and "
-						+ "	   q.country.name like %:country% and "
-						+ "	   q.category.name like %:category%"
-						)
-				Page<Board> findAllByKeywordCategory(
-						@Param("kw") String kw, 
-						Pageable pageable, 
-						@Param("country") String country, 
-						@Param("location") String location, 
-						@Param("category") String category);
+	@Query(   "select distinct q "
+			+ "from Board q "
+			+ "    left outer join Member u1 "
+			+ "	       on q.writer = u1 "
+			+ "where("
+			+ "	   q.title like %:kw% or "
+			+ "	   q.content like %:kw%) and "
+			+ "	   q.location.name like %:location% and "
+			+ "	   q.country.name like %:country% and "
+			+ "	   q.category.name like %:category%"
+			)
+			Page<Board> findAllByKeywordCategory(
+				@Param("kw") String kw, 
+				Pageable pageable, 
+				@Param("country") String country, 
+				@Param("location") String location, 
+				@Param("category") String category);
 }
 
