@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head th:replace="fragments/config :: configFragment">
 </head>
@@ -57,7 +57,7 @@
             <div class="menu_message_section">
                 <div class="menu_text">
                     <span>MESSAGE</span>
-                    <a href="javascript:openPopMessage()">+</a>
+                    <a id="pop_btn" href="javascript:openPopMessage()">+</a>
                 </div>
                 <ul class="menu_message_list">
                     <!-- 메시지 리스트 -->
@@ -86,4 +86,5 @@
     <div th:replace="fragments/friend_list :: friendListFragment"></div>
     <div th:replace="fragments/message_list :: messageListFragment"></div>
 </div>
+
 </html>
