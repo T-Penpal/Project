@@ -16,11 +16,9 @@ import com.penpal.project.list.CountryListRepository;
 import com.penpal.project.list.LocationListRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
-@Slf4j
 public class BoardService {
 
 	private final BoardRepository boardRepository;
@@ -33,29 +31,7 @@ public class BoardService {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("createDate"));
 		Pageable pageable = PageRequest.of(page, 6, Sort.by(sorts));
-		
-		if (kw.equals("")) {
-			kw = "";
-			System.out.println("kw null");
-		}
-		if(location.equals("")) {
-			location = "";
-			System.out.println("location null");
-
-		}
-		if(country.equals("")) {
-			System.out.println("country null");
-
-			country = "";
-		}
-		if(category.equals("")) {
-			System.out.println("category null");
-
-			category = "";
-		}
-		
-		//log.info("1. categoryO/locationO/countryO");
-		Page<Board> searchList = this.boardRepository.findAllByKeywordCategory(kw, pageable, location, country, category);
+		Page<Board> searchList = this.boardRepository.findAllByKeywordCategory(kw, pageable, country, location, category);
 
 		return searchList;
 	}

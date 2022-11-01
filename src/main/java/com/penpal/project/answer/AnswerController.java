@@ -10,19 +10,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.penpal.project.board.Board;
 import com.penpal.project.board.BoardService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("/answer")
 @RequiredArgsConstructor
 @Controller
-@Slf4j
 public class AnswerController {
 
 	private final BoardService boardService;
