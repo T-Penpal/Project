@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.penpal.project.board.Board;
@@ -46,11 +47,11 @@ public class AnswerController {
 	
 	// by 장유란, 답변수정버튼 클릭시 요청되는 매핑 처리
 	@GetMapping("/modify/{id}")
-	public String answerModify(AnswerForm answerForm, @PathVariable("id") Integer id) {
+	public void answerModify(AnswerForm answerForm, @PathVariable("id") Integer id) {
 		Answer answer = this.answerService.getAnswer(id);
 		answerForm.setContent(answer.getContent());
 		log.info("answer modify>>" + answer.getContent());
-		return "answer_form";
+//		return "answer_form";
 	}
 	
 	// by 장유란, answer_form에서 오는 정보 처리
