@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.penpal.project.board.Board;
-import com.penpal.project.board.BoardRepository;
 import com.penpal.project.board.DataNotFoundException;
 import com.penpal.project.member.Member;
 
@@ -17,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class AnswerService {
 
     private final AnswerRepository answerRepository;
-    private final BoardRepository boardRepository;
     // by 장유란, 답변기능 권한 주석처리
     public Answer create(Board board, String content, Member member) {
         Answer answer = new Answer();
