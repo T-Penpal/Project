@@ -10,17 +10,13 @@ import com.penpal.project.member.Member;
 
 public interface ProfileRepository extends JpaRepository<Profile, Integer>{
 
-	Profile getByMember(Member member);
-
 	// boardSearch 복사본, sns 등 추가수정 필요
-	@Query(   "select distinct q "
-			+ "from Profile q "
-			+ "    join Member u1 "
-			+ "	       on q.member = u1 "
+	@Query(   "select distinct p "
+			+ "from Profile p  "
 			+ "where "
-			+ "	   q.member.name like %:kw% and "
-			+ "	   q.location.name like %:location% and "
-			+ "	   q.country.name like %:country%"
+			+ "	   p.member.name like %:kw% and "
+			+ "	   p.location.name like %:location% and "
+			+ "	   p.country.name like %:country%"
 			)
 			Page<Profile> findAllByKeywordCategory(
 				@Param("kw") String kw, 
