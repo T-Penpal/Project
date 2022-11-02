@@ -9,8 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.penpal.project.board.Board;
-
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -21,7 +19,7 @@ public class ProfileService {
 	
 	public Page<Profile> getList(int page, String kw, String location, String country) {
 		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.desc("createDate"));
+		sorts.add(Sort.Order.desc("id"));	//나중에 lastDate로 변경 필요
 		Pageable pageable = PageRequest.of(page, 6, Sort.by(sorts));
 		Page<Profile> searchList = this.profileRepository.findAllByKeywordCategory(kw, pageable, country, location);
 

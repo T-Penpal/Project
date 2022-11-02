@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.penpal.project.board.Board;
 import com.penpal.project.profile.Profile;
 import com.penpal.project.profile.ProfileRepository;
 import com.penpal.project.profile.ProfileService;
@@ -29,6 +28,7 @@ public class MainController {
         return "index";
     }
     
+    // by 장유란, 프로필 목록 넘기기
     @RequestMapping("/users")
     public String users(Model model,
     		@RequestParam(value = "page", defaultValue = "0") int page,
@@ -38,8 +38,7 @@ public class MainController {
     	List<Profile> profilList = this.profileRepository.findAll();
     	
     	model.addAttribute("profilList", profilList);
-    	Page<Profile> paging = this.profileService.getList(page, kw, location, country); // by 장유란 board_list에서 paging,
-		model.addAttribute("paging", paging);
+    	Page<Profile> paging = this.profileService.getList(page, kw, location, country); 
 		model.addAttribute("kw", kw);	
 		
 		log.info("kw: " + kw + " page: " + page + " location: " + location + " country: " + country);

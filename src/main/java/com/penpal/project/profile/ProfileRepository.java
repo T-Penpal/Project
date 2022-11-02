@@ -14,12 +14,11 @@ public interface ProfileRepository extends JpaRepository<Profile, Integer>{
 
 	// boardSearch 복사본, sns 등 추가수정 필요
 	@Query(   "select distinct q "
-			+ "from Board q "
-			+ "    left outer join Member u1 "
-			+ "	       on q.writer = u1 "
-			+ "where("
-			+ "	   q.title like %:kw% or "
-			+ "	   q.content like %:kw%) and "
+			+ "from Profile q "
+			+ "    join Member u1 "
+			+ "	       on q.member = u1 "
+			+ "where "
+			+ "	   q.member.name like %:kw% and "
 			+ "	   q.location.name like %:location% and "
 			+ "	   q.country.name like %:country%"
 			)
