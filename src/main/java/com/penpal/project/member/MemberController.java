@@ -71,8 +71,6 @@ public class MemberController {
     @GetMapping("/login")
     public String login(Model model, String memberId) {
     	model.addAttribute("memberId", memberId);
-    	System.out.println("");
-    	System.out.println(memberId + "login");
         return "member/login";
     }
 

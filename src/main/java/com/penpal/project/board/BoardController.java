@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.penpal.project.answer.AnswerForm;
 import com.penpal.project.list.CategoryList;
@@ -61,14 +63,6 @@ public class BoardController {
 		log.info("kw: " + kw + " page: " + page + " location: " + location + " country: " + country + " catrgory: " + category);
 		return "community/community";
 	}
-	
-	
-	// @RequestMapping("")
-	// public String community(Model model) {
-	// List<Board> community = this.boardRepository.findAll();
-	// model.addAttribute("community", community);
-	// return "community/community";
-	// }
 
 	@RequestMapping(value = "/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
@@ -79,7 +73,7 @@ public class BoardController {
 	}
 
 	// by 장유란, 답변기능 권한 주석처리/**/
-	@PreAuthorize("isAuthenticated()") // 로그인 제약
+	//@PreAuthorize("isAuthenticated()") // 로그인 제약
 	@GetMapping("/create")
 	public String boardCreate(BoardForm boardForm) {
 		return "community/writeForm";
@@ -94,7 +88,7 @@ public class BoardController {
 		}
 		Member member = this.memberService.getMember(principal.getName());
 		this.boardService.create(boardForm.getTitle(), boardForm.getContent(), boardForm.getCategory(),
-				boardForm.getLocation(), boardForm.getCountry()/* , member */);
+				boardForm.getLocation(), boardForm.getCountry(), member );
 
 		return "redirect:/community"; // by 장유란, "redirect:community/community"; ==> "redirect:/community";
 	}
@@ -104,9 +98,9 @@ public class BoardController {
 	public String boardModify(BoardForm boardForm, @PathVariable("id") Integer id, Principal principal) {
 		Board board = this.boardService.getBoard(id);
 		// 작성자 == 수정요청자 동일한지 확인하는 기능
-		// if(!board.getWriter().getMemberId().equals(principal.getName())) {
-		// throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.")
-		// }
+		 if(!board.getWriter().getMemberId().equals(principal.getName())) {
+		 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+		 }
 		// boardForm에서 검증받은 제목 내용 가져오기
 		boardForm.setTitle(board.getTitle());
 		boardForm.setContent(board.getContent());
