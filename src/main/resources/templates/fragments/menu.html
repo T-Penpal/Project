@@ -71,12 +71,13 @@
     <div th:replace="fragments/message_list :: messageListFragment"></div>
     
     <script th:inline="javascript">
+    
         let member = /*[[${loginMember}]]*/ "로그인 멤버";
         console.log(member);
         window.onload = function () {
             getFriend();
-//            createRoom();
         }
+        
 
         function getFriend() {
             var msg = {
@@ -88,34 +89,12 @@
             });
         }
 
-//        function createRoom() {
-//            $("#createRoom").click(function () {
-//                var msg = {
-//                    makerId: $('#makerId').val(),
-//                    guestId: $('#guestId').val()
-//                };
-//
-//               commonAjax('/createRoom', msg, 'post', function (result) {
-//                    createChatingRoom(result);
-//                });
-//
-//                $("#makerId").val("");
-//                $("#guestId").val("");
-//            });
-//        }
-
         function createFriendList(res) {
             console.log(res);
             var tag ="";
             if (res != null) {
                 res.forEach(function (friend) {
                     var your;
-//                    if(member.id != room.maker.id){
-//						your = room.maker.name;
-//					}
-//					else{
-//						your = room.guest.name;
-//					}
 					your = friend.friend.name;
 					tag += "<li class='menu_friend'>" +
                         		"<div class='menu_friend_profile_name'>" +
@@ -124,6 +103,77 @@
                     		"</li>";
                 });
                 $("#friendList").empty().append(tag);
+            }
+        }
+        
+        if($("#my_friends").hasClass("active") === true) {
+			ReGetFriend();
+			ReGetFriendRequest();
+		}
+		
+		function ReGetFriend() {
+			var msg = {
+                memberId: member.id
+            };
+            console.log(msg);
+            commonAjax('/getFriend', msg, 'post', function (result) {
+                ReCreateFriendList(result);
+            });
+		}
+		
+		function ReCreateFriendList(res) {
+            console.log(res);
+            var tag ="";
+            if (res != null) {
+                res.forEach(function (friend) {
+                    var your;
+					your = friend.friend.name;
+					tag += "<div class='my_friend_section'>" +
+								"<div class='my_friend_img'>" + "</div>" +
+								"<div class='my_friend_info'>" +
+                        		"<div class='my_friend_name'>" +
+                            		your +
+                        		"</div>" + "<div class='my_friend_nationality'>" +
+                        		"</div>" + "</div>" + "<div class='my_friend_comment'>" +
+                        		"</div>" +
+                    		"</div>";
+                });
+                $("#myFriendSection").empty().append(tag);
+            }
+        }
+        
+        function ReGetFriendRequest() {
+			var msg = {
+                memberId: member.id
+            };
+            console.log(msg);
+            commonAjax('/getFriendRequest', msg, 'post', function (result) {
+                ReCreateFriendRequestList(result);
+            });
+		}
+		
+		function ReCreateFriendRequestList(res) {
+            console.log(res);
+            var tag ="";
+            if (res != null) {
+                res.forEach(function (friendRequest) {
+                    var your;
+					your = friendRequest.send.name;
+					tag += "<div class='request_friend_section'>" +
+								"<div class='request_friend_img'>" + "</div>" +
+								"<div class='request_friend_info'>" +
+                        		"<div class='request_friend_name'>" +
+                            		your +
+                        		"</div>" + "<div class='request_friend_nationality'>" +
+                        		"</div>" + "</div>" + "<div class='request_friend_btn'>" +
+                        		"<ul>" + "<li>" + "<button class='accept_btn' type='button'>" +
+                        		"ACCEPT" + "</button>" + "</li>" +
+                        		"<li>" + "<button class='refuse_btn' type='button'>" +
+                        		"REFUSE" + "</button>" + "</li>" +
+                        		"</ul>" + "</div>" +
+                    		"</div>";
+                });
+                $("#requestFriendSection").empty().append(tag);
             }
         }
 

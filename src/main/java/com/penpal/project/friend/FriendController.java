@@ -18,15 +18,26 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class FriendController {
    private final MemberService memberService;
-   private final FriendRepository friendRepository;
    
+   // by 안준언, 친구 리스트 가져오기 (임시)
    @RequestMapping("/getFriend")
    @ResponseBody
-   public  List<Friend> getFriend(@RequestParam HashMap<Object, Object> params){
+   public List<Friend> getFriend(@RequestParam HashMap<Object, Object> params){
 		Member member = this.memberService.getMember(Integer.parseInt((String) params.get("memberId")));
 		List<Friend> friendList = new ArrayList<>();
 		friendList.addAll(member.getFriendList());
 		
 		return friendList;
 	}
+   
+   // by 안준언, 내가 받은 친구 요청 리스트 가져오기 (임시)
+   @RequestMapping("/getFriendRequest")
+   @ResponseBody
+   public List<FriendRequest> getFriendRequest(@RequestParam HashMap<Object, Object> params){
+	   Member member = this.memberService.getMember(Integer.parseInt((String) params.get("memberId")));
+	   List<FriendRequest> friendRequestList = new ArrayList<>();
+	   friendRequestList.addAll(member.getFriendRequestList());
+	   
+	   return friendRequestList;
+   }
 }
