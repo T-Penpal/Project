@@ -28,25 +28,13 @@
                     <span>FRIEND</span>
                     <a id="pop_btn" href="javascript:openPopFriend()">+</a>
                 </div>
-                <ul class="menu_friend_list">
+                <ul id="friendList" class="menu_friend_list">
                     <!-- 친구 리스트 -->
                     <li class="menu_friend">
-                        <div class="menu_friend_profile_img">
-                            <!-- 친구 프로필 이미지 영역 -->
-                        </div>
                         <div class="menu_friend_profile_name">
                             <!-- 친구 이름 -->
                             Unknown
                         </div>
-                        <div class="menu_friend_profile_on_icon">
-                            <!-- 친구 온라인 상태 아이콘 -->
-                        </div>
-                    </li>
-                    <li class="menu_friend">
-                        <!-- 영역 확인용, 첫 li에 th:each 걸면 삭제 -->
-                    </li>
-                    <li class="menu_friend">
-                        <!-- 영역 확인용, 첫 li에 th:each 걸면 삭제 -->
                     </li>
                 </ul>
             </div>
@@ -86,59 +74,56 @@
         let member = /*[[${loginMember}]]*/ "로그인 멤버";
         console.log(member);
         window.onload = function () {
-            getRoom();
-            createRoom();
+            getFriend();
+//            createRoom();
         }
 
-        function getRoom() {
+        function getFriend() {
             var msg = {
                 memberId: member.id
             };
             console.log(msg);
-            commonAjax('/getRoom', msg, 'post', function (result) {
-                createChatingRoom(result);
+            commonAjax('/getFriend', msg, 'post', function (result) {
+                createFriendList(result);
             });
         }
 
-        function createRoom() {
-            $("#createRoom").click(function () {
-                var msg = {
-                    makerId: $('#makerId').val(),
-                    guestId: $('#guestId').val()
-                };
+//        function createRoom() {
+//            $("#createRoom").click(function () {
+//                var msg = {
+//                    makerId: $('#makerId').val(),
+//                    guestId: $('#guestId').val()
+//                };
+//
+//               commonAjax('/createRoom', msg, 'post', function (result) {
+//                    createChatingRoom(result);
+//                });
+//
+//                $("#makerId").val("");
+//                $("#guestId").val("");
+//            });
+//        }
 
-                commonAjax('/createRoom', msg, 'post', function (result) {
-                    createChatingRoom(result);
-                });
-
-                $("#makerId").val("");
-                $("#guestId").val("");
-            });
-        }
-
-        function goRoom(roomId) {
-            location.href = "/moveChating?roomId=" + roomId;
-        }
-
-        function createChatingRoom(res) {
+        function createFriendList(res) {
             console.log(res);
             var tag ="";
             if (res != null) {
-                res.forEach(function (room) {
+                res.forEach(function (friend) {
                     var your;
-                    if(member.id != room.maker.id){
-						your = room.maker.name;
-					}
-					else{
-						your = room.guest.name;
-					}
-					tag += "<li class='menu_message'>" +
-                        		"<div class='menu_message_profile_name'>" +
+//                    if(member.id != room.maker.id){
+//						your = room.maker.name;
+//					}
+//					else{
+//						your = room.guest.name;
+//					}
+					your = friend.friend.name;
+					tag += "<li class='menu_friend'>" +
+                        		"<div class='menu_friend_profile_name'>" +
                             		your +
                         		"</div>" +
                     		"</li>";
                 });
-                $("#roomList").empty().append(tag);
+                $("#friendList").empty().append(tag);
             }
         }
 
@@ -157,6 +142,7 @@
                 }
             });
         }
+        
     </script>
     
 </div>
