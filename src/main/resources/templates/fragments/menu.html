@@ -81,4 +81,82 @@
     </div>
     <div th:replace="fragments/friend_list :: friendListFragment"></div>
     <div th:replace="fragments/message_list :: messageListFragment"></div>
+    
+    <script th:inline="javascript">
+        let member = /*[[${loginMember}]]*/ "로그인 멤버";
+        console.log(member);
+        window.onload = function () {
+            getRoom();
+            createRoom();
+        }
+
+        function getRoom() {
+            var msg = {
+                memberId: member.id
+            };
+            console.log(msg);
+            commonAjax('/getRoom', msg, 'post', function (result) {
+                createChatingRoom(result);
+            });
+        }
+
+        function createRoom() {
+            $("#createRoom").click(function () {
+                var msg = {
+                    makerId: $('#makerId').val(),
+                    guestId: $('#guestId').val()
+                };
+
+                commonAjax('/createRoom', msg, 'post', function (result) {
+                    createChatingRoom(result);
+                });
+
+                $("#makerId").val("");
+                $("#guestId").val("");
+            });
+        }
+
+        function goRoom(roomId) {
+            location.href = "/moveChating?roomId=" + roomId;
+        }
+
+        function createChatingRoom(res) {
+            console.log(res);
+            var tag ="";
+            if (res != null) {
+                res.forEach(function (room) {
+                    var your;
+                    if(member.id != room.maker.id){
+						your = room.maker.name;
+					}
+					else{
+						your = room.guest.name;
+					}
+					tag += "<li class='menu_message'>" +
+                        		"<div class='menu_message_profile_name'>" +
+                            		your +
+                        		"</div>" +
+                    		"</li>";
+                });
+                $("#roomList").empty().append(tag);
+            }
+        }
+
+        function commonAjax(url, parameter, type, calbak) {
+            $.ajax({
+                url: url,
+                data: parameter,
+                type: type,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (res) {
+                    calbak(res);
+                },
+                error: function (err) {
+                    console.log('error');
+                    calbak(err);
+                }
+            });
+        }
+    </script>
+    
 </div>
