@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.penpal.project.board.Board;
 import com.penpal.project.board.BoardService;
+
 import com.penpal.project.member.Member;
 import com.penpal.project.member.MemberService;
 
@@ -76,4 +78,5 @@ public class AnswerController {
 		this.answerService.delete(answer);
 		return String.format("redirect:/community/detail/%s", answer.getBoard().getId());
 	}
+
 }

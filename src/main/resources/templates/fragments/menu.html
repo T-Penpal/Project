@@ -85,4 +85,9 @@
     </div>
     <div th:replace="fragments/friend_list :: friendListFragment"></div>
     <div th:replace="fragments/message_list :: messageListFragment"></div>
+    <script th:inline="javascript">
+    // by 구양근, 외부 파일로 사용시 타임리프 값을 못 불러와서 안에 선언
+    	let member = /*[[${loginMember}]]*/ "로그인 멤버";
+        //console.log(member);
+    </script>
 </div>
