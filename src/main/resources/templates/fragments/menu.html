@@ -76,6 +76,8 @@
         console.log(member);
         window.onload = function () {
             getFriend();
+            ReGetFriend();
+            ReGetFriendRequest();
         }
         
 
@@ -106,10 +108,7 @@
             }
         }
         
-        if($("#my_friends").hasClass("active") === true) {
-			ReGetFriend();
-			ReGetFriendRequest();
-		}
+
 		
 		function ReGetFriend() {
 			var msg = {
