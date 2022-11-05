@@ -1,6 +1,5 @@
 package com.penpal.project.profile;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +21,9 @@ import org.springframework.stereotype.Service;
 import com.penpal.project.board.DataNotFoundException;
 import com.penpal.project.list.CountryList;
 import com.penpal.project.list.LocationList;
+import com.penpal.project.list.SnsList;
 import com.penpal.project.member.Member;
+import com.penpal.project.member.list.MemberSns;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,7 +47,7 @@ public class ProfileService {
 		return new Specification<>() {
 			private static final long serialVersionUID = 1L;
 
-			@Override
+			@Override //프로필 생성문제로 검색기능 유연화
 			public Predicate toPredicate(Root<Profile> profile, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				query.distinct(true); // 중복을 제거
 				Join<Profile, Member> memberTable = profile.join("member", JoinType.INNER);
@@ -70,12 +71,24 @@ public class ProfileService {
 	}
 	
 	// 프로필 생성
-    public void create(String nickname, String gender, Integer age, String comment) {
+    public void create(
+    		String nickname, String gender, Integer age,
+    		String comment, Member member,
+    		LocationList location, CountryList country,
+    		MemberSns memberSns
+    		) {
+    	System.out.println("service");
         Profile p = new Profile();
         p.setNickname(nickname);
         p.setGender(gender);
         p.setAge(age);
         p.setComment(comment);
+        p.setMember(member);
+        p.setLocation(location);
+        p.setCountry(country);
+        p.setMember(member);
+        p.setSns(memberSns);
+        
         this.profileRepository.save(p);
     }
 

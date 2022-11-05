@@ -21,7 +21,4 @@ public class SnsList {
 	@Column(unique = true , length = 30, name = "sns_name")
 	private String name;
 	
-	public String toString() {
-        return name;
-    }
 }
