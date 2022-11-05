@@ -1,5 +1,6 @@
 package com.penpal.project.profile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -51,23 +52,31 @@ public class ProfileService {
 				Join<Profile, Member> memberTable = profile.join("member", JoinType.INNER);
 				Join<Profile, LocationList> locationTable = profile.join("location", JoinType.INNER);
 				Join<Profile, CountryList> countryTable = profile.join("country", JoinType.INNER);
-				return cb.and(
-						cb.like(memberTable.get("name"), "%" + kw + "%"), 			// 멤버명
-						cb.like(locationTable.get("name"), "%" + location + "%"),	// location
-						cb.like(countryTable.get("name"), "%" + country + "%")); 	// country
+				return cb.and(cb.like(memberTable.get("name"), "%" + kw + "%"), // 멤버명
+						cb.like(locationTable.get("name"), "%" + location + "%"), // location
+						cb.like(countryTable.get("name"), "%" + country + "%")); // country
 			}
 		};
 	}
-	
+
 	// 프로필 상세 조회
-    public Profile getProfile(Integer id) {  
-        Optional<Profile> profile = this.profileRepository.findById(id);
-        if (profile.isPresent()) {
-            return profile.get();
-        } else {
-            throw new DataNotFoundException("프로필이 없습니다.");
-        }
-    }
+	public Profile getProfile(Integer id) {
+		Optional<Profile> profile = this.profileRepository.findById(id);
+		if (profile.isPresent()) {
+			return profile.get();
+		} else {
+			throw new DataNotFoundException("유효하지 않은 프로필입니다.");
+		}
+	}
 	
+	// 프로필 생성
+    public void create(String nickname, String gender, Integer age, String comment) {
+        Profile p = new Profile();
+        p.setNickname(nickname);
+        p.setGender(gender);
+        p.setAge(age);
+        p.setComment(comment);
+        this.profileRepository.save(p);
+    }
 
 }

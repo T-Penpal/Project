@@ -1,9 +1,14 @@
 package com.penpal.project.profile;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -34,6 +39,24 @@ public class profileController {
 		return "profile/users";
     }
 
+    @GetMapping("/profile/create/{id}")
+    public String profileCreate(Model model, @PathVariable("id") Integer id) {
+    	return "profile/user_profile_form";
+    }
+    
+    // 프로필 생성 일부 반영
+    @PostMapping("/profile/create/{id}")
+    public String profileCreate(
+    		@Valid ProfileForm profileForm, BindingResult bindingResult) {
+    	if (bindingResult.hasErrors()){
+    		return "profile/user_profile_form";
+    	}
+    	this.profileService.create(
+    			profileForm.getNickname(), profileForm.getGender(), 
+    			profileForm.getAge(), profileForm.getComment());
+    	return "redirect:/users";
+    }
+    
     // 프로필 상세 보기
     @RequestMapping(value = "/profile/{id}")
     public String userProfile(Model model, @PathVariable("id") Integer id){
