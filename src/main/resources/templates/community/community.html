@@ -1,10 +1,13 @@
 <html layout:decorate="~{layout/layout}">
+
 <style>
 	.page-item.active {
 		font-weight: bolder;
 	}
 </style>
+
 <div layout:fragment="content">
+
 	<div id="wrap">
 		<section id="community_section01" class="potion">
 			<div class="community_text">
@@ -18,7 +21,9 @@
 			<div class="search">
 				<label name="search"></label>
 				<input type="text" id="search_kw" placeholder="Search" th:value="${kw}">
-				<button type="button" id="btn_search"></button>
+				<button type="button" id="btn_search">
+					<i class="fas fa-search"></i>
+				</button>
 			</div>
 			<div class="search_nationality">
 				<select class="nation_select" name="location" id="location" th:field="*{location}">
@@ -61,6 +66,17 @@
 							</div>
 							<div class="view_profile_section">
 								<!-- 해당 글 작성자 프로필 -->
+								<div class="view_profile_writer_img">
+									<!-- 글 작성자 프로필 이미지 -->
+								</div>
+								<div class="view_profile_writer_info">
+									<div class="view_profile_writer" th:text="${board.writer.name}">
+										<!-- 글 작성자 닉네임 -->
+									</div>
+									<div class="view_profile_writer_nationality" th:text="${board.writer.profile.country}">
+										<!-- 글 작성자 국적 -->
+									</div>
+								</div>
 							</div>
 							<div class="view_title" th:text="|${board.title}|"></div>
 							<div class="view_content" th:text="|${board.content}|"></div>

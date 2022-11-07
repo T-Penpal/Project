@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.penpal.project.board.Board;
 import com.penpal.project.board.DataNotFoundException;
+
 import com.penpal.project.member.Member;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class AnswerService {
 
     private final AnswerRepository answerRepository;
@@ -41,7 +44,7 @@ public class AnswerService {
     public void modify(Answer answer, String content) {
     	answer.setContent(content);
     	answer.setModifyDate(LocalDateTime.now());
-    	System.out.println("modify Service");
+    	log.info("modify Service");
     	this.answerRepository.save(answer);
     }
 	
@@ -50,5 +53,4 @@ public class AnswerService {
     }
 	
 
-	
 }

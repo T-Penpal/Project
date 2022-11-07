@@ -1,6 +1,5 @@
 package com.penpal.project.list;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,4 +21,7 @@ public class FavoriteList {
 	@Column(unique = true , length = 30, name = "favorite_name")
 	private String name;
 	
+	public String toString() {
+		return name;
+    }
 }

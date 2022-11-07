@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.penpal.project.chat.Room;
 import com.penpal.project.friend.Friend;
 import com.penpal.project.friend.FriendRequest;
@@ -22,33 +24,36 @@ import com.penpal.project.profile.Profile;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @Entity
 public class Member {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	// by 장유란, user* -> member 변수명 변경 
+	// by 장유란, user* -> member 변수명 변경
 	@Column(unique = true, length = 30)
+	@JsonIgnore
 	private String memberId;
 
 	@Column
+	@JsonIgnore
 	private String memberPw;
 
 	@Column(unique = true, length = 60)
 	private String name;
 
 	@Column(unique = true, length = 150)
+	@JsonIgnore
 	private String email;
-
+	
+	@JsonIgnore
 	private LocalDateTime createDate;
 
-	// by 장유란, author -> writer 변수명 변경 
+	// by 장유란, author -> writer 변수명 변경
 	@ManyToOne
+	@JsonIgnore
 	private Member writer;
 
 	// by 안준언, 현재 접속여부 구분을 위해 해당 필드 살렸습니다.
@@ -78,6 +83,5 @@ public class Member {
 	@OneToMany(mappedBy = "receive", cascade = CascadeType.REMOVE)
 	@JsonBackReference
 	private List<FriendRequest> friendRequestList;
-
 
 }

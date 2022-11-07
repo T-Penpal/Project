@@ -14,9 +14,9 @@
                         <!-- 이름 -->
                         [[${loginMember.name}]]
                     </span><br>
-                    <span class="menu_profile_nationality">
+                    <span class="menu_profile_nationality" th:if="${loginMember.profile != null}">
                         <!-- 국적 -->
-                        Korea
+                        [[${loginMember.profile.country}]]
                     </span>
                     <div class="menu_profile_flag">
                         <!-- 국가 아이콘 -->
@@ -34,6 +34,11 @@
                         <div class="menu_friend_profile_name">
                             <!-- 친구 이름 -->
                             Unknown
+                        </div>
+                        <div class="menu_friend_profile_on_icon">
+                            <!-- 친구 온라인 상태 아이콘 -->
+                            <!-- 온라인 상태인 친구만 띄우기 -->
+                            <i class="far fa-user"></i>
                         </div>
                     </li>
                 </ul>
@@ -55,6 +60,8 @@
                         </div>
                         <div class="menu_message_profile_on_icon">
                             <!-- 신규 메시지 알림 아이콘 -->
+                            <!-- 최근 대화자 순서 -->
+                            <i class="far fa-envelope"></i>
                         </div>
                     </li>
                     <li class="menu_message">
@@ -69,128 +76,14 @@
     </div>
     <div th:replace="fragments/friend_list :: friendListFragment"></div>
     <div th:replace="fragments/message_list :: messageListFragment"></div>
-    
     <script th:inline="javascript">
-    
-        let member = /*[[${loginMember}]]*/ "로그인 멤버";
+    // by 구양근, 외부 파일로 사용시 타임리프 값을 못 불러와서 안에 선언
+    	let member = /*[[${loginMember}]]*/ "로그인 멤버";
         console.log(member);
-        window.onload = function () {
-            getFriend();
-            ReGetFriend();
-            ReGetFriendRequest();
-        }
-
-        function getFriend() {
-            var msg = {
-                memberId: member.id
-            };
-            console.log(msg);
-            commonAjax('/getOnlineFriend', msg, 'post', function (result) {
-                createFriendList(result);
-            });
-        }
-
-        function createFriendList(res) {
-            console.log(res);
-            var tag ="";
-            if (res != null) {
-                res.forEach(function (friend) {
-                    var your;
-					your = friend.friend.name;
-					tag += "<li class='menu_friend'>" +
-                        		"<div class='menu_friend_profile_name'>" +
-                            		your +
-                        		"</div>" +
-                    		"</li>";
-                });
-                $("#friendList").empty().append(tag);
-            }
-        }
-        
-
-		
-		function ReGetFriend() {
-			var msg = {
-                memberId: member.id
-            };
-            console.log(msg);
-            commonAjax('/getFriend', msg, 'post', function (result) {
-                ReCreateFriendList(result);
-            });
-		}
-		
-		function ReCreateFriendList(res) {
-            console.log(res);
-            var tag ="";
-            if (res != null) {
-                res.forEach(function (friend) {
-                    var your;
-					your = friend.friend.name;
-					tag += "<div class='my_friend_section'>" +
-								"<div class='my_friend_img'>" + "</div>" +
-								"<div class='my_friend_info'>" +
-                        		"<div class='my_friend_name'>" +
-                            		your +
-                        		"</div>" + "<div class='my_friend_nationality'>" +
-                        		"</div>" + "</div>" + "<div class='my_friend_comment'>" +
-                        		"</div>" +
-                    		"</div>";
-                });
-                $("#myFriendSection").empty().append(tag);
-            }
-        }
-        
-        function ReGetFriendRequest() {
-			var msg = {
-                memberId: member.id
-            };
-            console.log(msg);
-            commonAjax('/getFriendRequest', msg, 'post', function (result) {
-                ReCreateFriendRequestList(result);
-            });
-		}
-		
-		function ReCreateFriendRequestList(res) {
-            console.log(res);
-            var tag ="";
-            if (res != null) {
-                res.forEach(function (friendRequest) {
-                    var your;
-					your = friendRequest.send.name;
-					tag += "<div class='request_friend_section'>" +
-								"<div class='request_friend_img'>" + "</div>" +
-								"<div class='request_friend_info'>" +
-                        		"<div class='request_friend_name'>" +
-                            		your +
-                        		"</div>" + "<div class='request_friend_nationality'>" +
-                        		"</div>" + "</div>" + "<div class='request_friend_btn'>" +
-                        		"<ul>" + "<li>" + "<button class='accept_btn' type='button'>" +
-                        		"ACCEPT" + "</button>" + "</li>" +
-                        		"<li>" + "<button class='refuse_btn' type='button'>" +
-                        		"REFUSE" + "</button>" + "</li>" +
-                        		"</ul>" + "</div>" +
-                    		"</div>";
-                });
-                $("#requestFriendSection").empty().append(tag);
-            }
-        }
-
-        function commonAjax(url, parameter, type, calbak) {
-            $.ajax({
-                url: url,
-                data: parameter,
-                type: type,
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                success: function (res) {
-                    calbak(res);
-                },
-                error: function (err) {
-                    console.log('error');
-                    calbak(err);
-                }
-            });
-        }
+        // by 구양근, 30초 마다 리스트 갱신
+        setInterval(function(){
+			getRoom();
+		},30000);
         
     </script>
-    
 </div>
