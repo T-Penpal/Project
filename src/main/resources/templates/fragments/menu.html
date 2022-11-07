@@ -85,7 +85,7 @@
                 memberId: member.id
             };
             console.log(msg);
-            commonAjax('/getFriend', msg, 'post', function (result) {
+            commonAjax('/getOnlineFriend', msg, 'post', function (result) {
                 createFriendList(result);
             });
         }
