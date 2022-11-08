@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class FriendController {
    private final MemberService memberService;
+   private final FriendRepository friendRepository;
    
    // by 안준언, 친구 리스트 가져오기 (임시)
    @RequestMapping("/getFriend")
@@ -58,4 +59,16 @@ public class FriendController {
 	   
 	   return friendRequestList;
    }
+   
+// by 안준언, 친구 삭제 (임시)
+   @RequestMapping("/deleteFriend")
+   public void delfriend(@RequestParam HashMap<Object, Object> params) {
+	   Friend df1 = this.friendRepository.findByMineAndFriend((Member)params.get("mine"), (Member)params.get("friend"));
+	   Friend df2 = this.friendRepository.findByMineAndFriend((Member)params.get("friend"), (Member)params.get("mine"));
+	   
+	   this.friendRepository.delete(df1);
+	   this.friendRepository.delete(df2);
+   }
+   
+   
 }

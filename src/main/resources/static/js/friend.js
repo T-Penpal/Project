@@ -54,7 +54,7 @@ function createFriendList(res) {
                 		"</div>" + "<div class='my_friend_nationality'>" + "United States" +
                 		"</div>" + "</div>" + "<div class='my_friend_comment'>" + "최대 세 줄 까지 출력됨" +
                 		"</div>" + "<div class='friend_btn_section'>" +
-                		"<button type='button' class='friend_remove_btn'>" + "Delete" +
+                		"<button type='button' class='friend_remove_btn' onclick='deleteFriend(\"" + friend.id + "\")'>" + "Delete" +
                 		"</button>" + "</div>" +
             		"</div>";
         });
@@ -111,4 +111,19 @@ function commonAjax(url, parameter, type, calbak) {
             calbak(err);
         }
     });
+}
+
+function deleteFriend(friendId) {
+	
+	let msg = {
+        friendId: friendId
+    };
+
+    commonAjax('/deleteFriend', msg, 'post', function () {
+        getFriend();
+    });
+    /*
+	commonAjax
+	let name = document.querySelector('.my_friend_name').innerHTML;
+	console.log(name); */
 }

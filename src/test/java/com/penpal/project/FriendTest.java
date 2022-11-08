@@ -125,7 +125,7 @@ public class FriendTest {
 //		
 //	}
 	
-//	// by 안준언, Member PK 값을 참조한 Friend 데이터 생성
+	// by 안준언, Member PK 값을 참조한 Friend 데이터 생성
 //	@Test
 //	void addFriend() {
 //		Optional<Member> member1 = memberRepository.findById(1);
