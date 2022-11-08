@@ -13,9 +13,6 @@ import javax.persistence.OneToOne;
 import com.penpal.project.list.CountryList;
 import com.penpal.project.list.LocationList;
 import com.penpal.project.member.Member;
-import com.penpal.project.member.list.MemberFavorite;
-import com.penpal.project.member.list.MemberLanguage;
-import com.penpal.project.member.list.MemberSns;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +33,7 @@ public class Profile {
 	private String gender;
 	
 	// 성별 int -> Integer 변환
-	private Integer age;
+	private int age;
 	
 	@OneToOne
 	private Member member;
@@ -47,14 +44,17 @@ public class Profile {
 	@ManyToOne
 	private CountryList country;
 	
-	@OneToOne
-	private MemberSns sns;
+	private String sns1;
+	private String sns2;
+	private String sns3;
 	
-	@OneToOne
-	private MemberFavorite favorite;
+	private String favorite1;
+	private String favorite2;
+	private String favorite3;
 	
-	@OneToOne
-	private MemberLanguage language;
+	private String language1;
+	private String language2;
+	private String language3;
 	
 	@Column(columnDefinition = "TEXT")
 	private String comment;

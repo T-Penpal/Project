@@ -5,9 +5,6 @@ import javax.validation.constraints.NotEmpty;
 import com.penpal.project.list.CountryList;
 import com.penpal.project.list.LocationList;
 import com.penpal.project.member.Member;
-import com.penpal.project.member.list.MemberFavorite;
-import com.penpal.project.member.list.MemberLanguage;
-import com.penpal.project.member.list.MemberSns;
 
 import lombok.Data;
 import lombok.Getter;
@@ -27,8 +24,8 @@ public class ProfileForm {
 	@NotEmpty(message="성별을 정해주세요")
 	private String gender;
 	
-	//@NotEmpty(message="나이를 입력해주세요")	//숫자로 변경
-	private Integer age;
+	@NotEmpty(message="나이를 입력해주세요")	//숫자로 변경
+	private String age;
 	
 	@NotEmpty(message="사는 지역을 입력해주세요")
 	private String location;
@@ -37,20 +34,21 @@ public class ProfileForm {
 	private String country;
 	
 	
-	@NotEmpty(message="사용하는 sns를 입력해주세요")
+	//@NotEmpty(message="사용하는 sns를 입력해주세요")
 	private String sns1;
 	private String sns2;
 	private String sns3;
 	
-	@NotEmpty(message="취미를 입력해주세요")
-	private String favorite;
+	//@NotEmpty(message="취미를 입력해주세요")
+	private String favorite1;
+	private String favorite2;
+	private String favorite3;
 	
 	//@NotEmpty(message="사용하는 언어를 입력해주세요")
-	private String language;
+	private String language1;
+	private String language2;
+	private String language3;
 	
 	private String comment;
-	
-	private Member member;
 
-	private String img;
 }
