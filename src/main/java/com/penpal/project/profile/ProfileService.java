@@ -59,6 +59,7 @@ public class ProfileService {
 			}
 		};
 	}
+	
 
 	// 프로필 상세 조회
 	public Profile getProfile(Integer id) {

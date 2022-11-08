@@ -46,6 +46,7 @@ function createRoomList(result) {
 	let tag = "";
 	if (result != null) {
 		result.forEach(function(room) {
+			let length = room.messageList.length;
 			let your;
 			if (member.id != room.maker.id) {
 				your = room.maker;
@@ -61,12 +62,12 @@ function createRoomList(result) {
 				your.name +
 				"</div>" +
 				"<div class='message_content'>" +
-				"<span>test</span>" +
+				"<span>" + room.messageList[length - 1].content + "</span>" +
 				"</div>" +
-				"<div class='message_new_count'>" +
-				"<span>1</span>" +
-				"</div>" +
-				"<button type='button' id='message_room_delete_btn' value='DELETE'>" +
+//				"<div class='message_new_count'>" +
+//				"<span></span>" +
+//				"</div>" +
+				"<button type='button' id='message_room_delete_btn' value='DELETE' onclick = 'deleteRoom(\"" + room.id + "\")'>" +
 				"Delete" +
 				"</button>" +
 				"</div>" +
@@ -103,13 +104,26 @@ function openRoom(roomId, name) {
 	wsEvt();
 }
 
+function deleteRoom(roomId){
+	event.preventDefault(); // by 구양근, a 태그 기본 이벤트 중지
+	event.stopPropagation(); // by 구양근, 상위로 이벤트 전파 중지
+	let msg = {
+		roomId: roomId
+	};
+	console.log("delete : " + msg);
+	commonAjax('/deleteRoom', msg, 'post', function(result) {
+		getRoom();
+	});
+}
+
 function wsEvt() {
 	ws.onopen = function(data) {
 		//소켓이 열리면 동작
 		console.log($("#roomId").val() + "번방 연결");
 		console.log($("#roomId").val());
 		getMessage();
-		document.addEventListener("keypress", Enter);
+		//document.addEventListener("keyup", Enter);
+		document.getElementById("chatting").addEventListener("keyup",Enter);
 	}
 
 	ws.onmessage = function(data) {
@@ -117,12 +131,14 @@ function wsEvt() {
 		let msg = data.data;
 		if (msg != null && msg.trim() != '') {
 			let d = JSON.parse(msg);
+			console.log(d);
 			if (d.type == "getId") {
 				let si = d.sessionId != null ? d.sessionId : "";
 				if (si != '') {
 					$("#sessionId").val(si);
 				}
 			} else if (d.type == "message") {
+				d.msg = d.msg.replace(/\n/g,"<br>") // by 구양근, 개행 문자 치환
 				if (d.sessionId == $("#sessionId").val()) {
 					$("#chating").append("<div class='my_message_log'>" +
 						"<p class='my_message'>" + d.msg + "</p>" + "</div>");
@@ -139,6 +155,7 @@ function wsEvt() {
 }
 
 function send() {
+	if($("#chatting").val().trim() != ""){
 	let option = {
 		type: "message",
 		roomId: $("#roomId").val(),
@@ -149,11 +166,18 @@ function send() {
 	console.log(option);
 	ws.send(JSON.stringify(option))
 	$('#chatting').val("");
+	}
 }
 
 // by 구양근, 엔터치면 메세지 보내게 이벤트 추가
 function Enter(e) {
-	if (e.keyCode == 13) { //enter press
+	// by 구양근, ctrl + enter 치면 그냥 줄바꿈
+	if ((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey)){
+		this.value += "\n";
+		return true;
+	}
+	// by 구양근, enter 치면 메세지 전송
+	if (e.keyCode == 13 && !e.ctrlKey) {
 		send();
 	}
 }
@@ -195,6 +219,7 @@ function createRoomMessage(result) {
 	let tag = "";
 	if (result != null) {
 		result.forEach(function(message) {
+			message.content = message.content.replace(/\n/g,"<br>"); // by 구양근, 개행문자 치환
 			if (member.id != message.sender.id) {
 				tag += "<div class='friend_message_log'>" +
 					"<p class='friend_message'>" + message.content + "</p>" + "</div>";
