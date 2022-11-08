@@ -170,9 +170,17 @@
 			original_form.style.visibility = 'hidden';
 			modify_btn_section.style.visibility = 'hidden';
 		
-			
+			//answer_modify_cancle_btn
+			$(".answer_modify_cancle_btn").on('click', function (e) {
+				targetForm.style.visibility = 'hidden';	
+				original_form.style.visibility = 'inherit';
+				modify_btn_section.style.visibility = 'inherit';
+			})
 
 		})
+		
+		
+		
 	</script>
 
 	<script>
