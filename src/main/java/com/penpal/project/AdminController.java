@@ -30,11 +30,10 @@ public class AdminController {
 	private final CategoryListRepository categoryListRepository;
 	private final LocationListRepository locationListRepository;
 	private final CountryListRepository countryListRepository;
-	
 	private final SnsListRepository snsListRepository;
 	private final FavoriteListRepository favoriteListRepository;
 	private final LanguageListRepository languageListRepository;
-	
+
 	@GetMapping("/admin")
 	public String admin(Model model) {
 		List<CategoryList> categoryList = categoryListRepository.findAll();
