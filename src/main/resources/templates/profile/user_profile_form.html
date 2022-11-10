@@ -25,13 +25,11 @@
 						<img id="preview" 
 							th:if="${loginMember.profile} != null ? ${loginMember.profile.url} : 0"
 							th:src="|/users/image?url=${loginMember.profile.url}|" alt="프로필 이미지">
-						<img id="preview" th:if="${loginMember.profile.url} == null" >
-						<input type="file" name="picture" accept="image/*" onchange="readURL(this)">
+						<img id="preview" th:if="${loginMember.profile} != null ? !${loginMember.profile.url} : 0">
+						<img id="preview" th:if="${loginMember.profile} == null" >
 					</div>
-					<button type="button" class="profile_img_upload_btn" value="UPLOAD">
-						<!-- 프로필 이미지 수정&등록 버튼 -->
-						upload
-					</button>
+					<label id="profile_input_label" for="profile_img_input">Upload</label>
+					<input id="profile_img_input" type="file" name="picture" accept="image/*" onchange="readURL(this)">
 					<div class="profile_info_data">
 						<label for="nickname" class="form-label"></label>
 						<input type="text" class="profile_name_form" th:field="*{nickname}">
@@ -58,10 +56,10 @@
 						</div>
 						<div class="profile_info_right">
 							<div class="profile_location_form">
-								Nationality<br>
+								Region<br>
 								<div class="write_nationality">
 									<select class="nation_select" name="location" id="location" th:field="*{location}">
-										<option value="" selected>Nationality</option>
+										<option value="" selected>Region</option>
 										<option th:each="location : ${location}" th:value="${location}"
 											th:text="${location.name}"></option>
 									</select>

@@ -18,7 +18,7 @@
             </div>
             <div class="search_nationality">
                 <select class="nation_select" name="location" id="location" th:field="*{location}">
-                    <option value="" selected>Nationality</option>
+                    <option value="" selected>Region</option>
                     <option th:each="location : ${location}" th:value="${location}" th:text="${location.name}"></option>
                 </select>
             </div>
@@ -37,7 +37,7 @@
                     <a th:href="@{|users/profile/${profile.id}|}">
                         <div class="user_profile_img">
                             <!-- 프로필 이미지 data -->
-                            <img th:if = "${profile.url} != null" th:src = "|/users/image?url=${profile.url}|" alt = "프로필 이미지">
+                            <img id="preview" th:if = "${profile.url} != null" th:src = "|/users/image?url=${profile.url}|" alt = "프로필 이미지">
                         </div>
                     </a>
                     <!-- by 장유란, 프로필 유저 네임 추가 -->
