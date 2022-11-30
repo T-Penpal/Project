@@ -1,0 +1,20 @@
+package com.penpal.project.member;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Controller
+@RequestMapping("/user")
+public class MemberController {
+
+    private final MemberService memberService;
+    
+    @GetMapping("/signup")
+    public String signup(MemberCreateForm memberCreateForm) {
+        return "member/signup_form";
+    }
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>사용자 등록 성공</title>
+<style type="text/css">
+	span {
+		display: inline-block;
+		width: 200px;
+		text-align: left;
+	}
+</style>
+</head>
+<body>
+	<div align="center">
+		<h2>등록성공 !</h2>
+		<span>이름:</span><span th:text="${user.name}"></span><br/>
+		<span>E-mail:</span><span th:text="${user.email}"></span><br/>
+		<span>비밀번호:</span><span th:text="${user.password}"></span><br/>
+		<span>성별:</span><span th:text="${user.gender}"></span><br/>
+		<span>직업:</span><span th:text="${user.profession}"></span><br/>
+		<span>결혼여부?</span><span th:text="${user.married}"></span><br/>
+		<span>메모:</span><span th:text="${user.note}"></span><br/>
+	</div>
+</body>
+</html>

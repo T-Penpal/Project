@@ -1,0 +1,17 @@
+package com.penpal.project.board;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.penpal.project.list.CategoryList;
+import com.penpal.project.list.CountryList;
+import com.penpal.project.list.LocationList;
+
+public interface BoardRepository extends JpaRepository<Board, Integer>{
+
+    public static final CategoryList categoryList = new CategoryList();
+    public static final LocationList locationList = new LocationList();
+    public static final CountryList categoryList = new CountryList();
+    LocationList findByLocation(String location); 
+    CountryList findByCountry(String country);
+    
+}

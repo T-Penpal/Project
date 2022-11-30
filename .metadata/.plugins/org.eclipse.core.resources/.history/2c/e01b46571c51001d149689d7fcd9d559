@@ -1,0 +1,6 @@
+package com.panpal.project.board.answer;
+
+@Controller
+public class AnswerController {
+
+}

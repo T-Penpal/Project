@@ -1,0 +1,13 @@
+package com.panpal.project.board.category_list;
+
+import javax.persistence.Entity;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+public class CategoryList {
+
+}

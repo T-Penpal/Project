@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>User Registration</title>
+<style type="text/css">
+	label {
+		display: inline-block;
+		width: 200px;
+		margin: 5px;
+		text-align: left;
+	}
+	input[type=text], input[type=password], select {
+		display: inline-block;
+		width: 200px;
+	}
+	input[type=radio] {
+		margin-left: 45px;
+	}
+	input[type=checkbox] {
+		margin-right: 190px;
+	}	
+	button {
+		padding: 5px;
+		margin: 10px;
+	}
+</style>
+</head>
+<body>
+	<div align="center">
+		<h1>사용자 등록화면</h1>
+		<form action="#" th:action="@{/register}" method="post" th:object="${user}">
+			<label>이름:</label>
+			<input type="text" th:field="*{name}" /><br/>
+			
+			<label>E-mail:</label>
+			<input type="email" th:field="*{email}" /><br/>
+					
+			<label>비밀번호:</label>
+			<input type="password" th:field="*{password}" /><br/>
+
+			<label>생일 (yyyy-mm-dd):</label>
+			<input type="text" th:field="*{birthday}" /><br/>
+			
+			<label>성별:</label>
+			<input type="radio" th:field="*{gender}" value="Male" />Male
+			<input type="radio" th:field="*{gender}" value="Female" />Female<br/>
+			
+			<label>직업:</label>
+			<select th:field="*{profession}">
+				<option th:each="p : ${listProfession}" th:value="${p}" th:text="${p}" />
+			</select>
+			<br/>
+		
+			<label>결혼여부:</label>
+			<input type="checkbox" th:field="*{married}" /><br/>
+							
+			<label>메모:</label>
+			<textarea rows="5" cols="25" th:field="*{note}"></textarea>
+			<br/>
+			
+			<button type="submit">전송</button>		
+		</form>
+	</div>
+</body>
+</html>

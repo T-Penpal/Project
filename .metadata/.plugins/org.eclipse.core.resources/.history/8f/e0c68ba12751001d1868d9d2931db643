@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Board</title>
+	<style>
+		*{
+			font-style: none;
+			list-style: none;
+			text-decoration: none;
+			color: black;
+		}
+
+		.board_content li{
+			box-sizing: border-box;
+			border: 1px solid black;
+			float: left;
+			width: 50%;
+		}
+		
+		.board_content li{
+
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<ul class="board_content" th:each="board : ${boardList}">
+			<li>
+				<a th:href="@{|/board/detail/${board.id}|}">
+				<a th:href="@{|/board/detail/${board.id}|}" th:text="${board.id}"></a>
+				<a th:href="@{|/board/detail/${board.id}|}" th:text="${board.title}"></a>
+				<a th:text="${board.title}"></a>
+				<div th:text="${board.content}"></div>
+				<div th:text="${board.category}"></div>
+				<div th:text="${board.writer}"></div>
+				<div th:text="${board.createDate}"></div>
+			
+			</a>
+			</li>
+		</ul>
+		<a th:href="@{/board/create}" class="btn btn-primary">UPLODE</a>
+	</div>
+
+</body>
+
+</html>

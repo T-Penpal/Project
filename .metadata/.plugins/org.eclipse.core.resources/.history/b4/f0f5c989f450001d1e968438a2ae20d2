@@ -1,0 +1,22 @@
+server:
+  port: 80
+  
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@127.0.0.1:1521/xe
+    username: hdcd
+    password: '1234'
+
+  jpa:
+    generate-ddl: 'true'
+    database: oracle
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+   
+logging:
+  level:
+    org:
+      hibernate:info

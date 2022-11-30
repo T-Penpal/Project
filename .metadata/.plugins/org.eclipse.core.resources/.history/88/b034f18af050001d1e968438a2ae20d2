@@ -1,0 +1,22 @@
+package com.mysite.report1;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/auth")
+public class LogoutController {
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        
+        System.out.println("userInfo : " + userInfo);
+        
+        session.invalidate();
+        return "redirect:/";
+    }
+}

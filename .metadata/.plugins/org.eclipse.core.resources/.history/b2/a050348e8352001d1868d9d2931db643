@@ -1,0 +1,20 @@
+package com.penpal.project.board;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class BoardForm {
+
+    @NotEmpty(message="제목을 작성해주세요.")
+    @Size(max=50)
+    private String title;
+    
+    @NotEmpty(message="내용을 작성해주세요.")
+    @Size(max=300)
+    private String content;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Board</title>
+</head>
+
+<body>
+	<div>
+		<ul th:each="board : ${boardList}">
+			<li th:text="${board.id}">
+				<a th:text="${board.title}"></a>
+				<a th:text="${board.content}"></a>
+				<a th:text="${board.category}"></a>
+				<a th:text="${board.writer}"></a>
+				<a th:text="${board.create_date}"></a>
+			</li>
+		</ul>
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<th>제목</th>
+				<th>작성일시</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:each="board : ${boardList}">
+				<td th:text="${board.title}"></td>
+				<td th:text="${board.create_date}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

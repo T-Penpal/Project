@@ -1,0 +1,12 @@
+package com.penpal.project.board;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.penpal.project.list.CategoryList;
+
+public interface BoardRepository extends JpaRepository<Board, Integer>{
+
+    CategoryList findByCategory(String category);
+    
+    
+}

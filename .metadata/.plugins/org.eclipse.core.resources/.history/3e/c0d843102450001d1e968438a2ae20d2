@@ -1,0 +1,24 @@
+package com.mysite.report1;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class LoginController {
+
+    @GetMapping("/login")
+    public String loginForm(LoginInput loginInPut) {
+        return "loginForm";
+    }
+    
+    public String login(LoginInput loginInput, HttpSession session) {
+        UserInfo userInfo = new UserInfo(1, loginInput.getEmail(), loginInput.getPassworld());
+        
+        session.setAttribute("userInfo", userInfo);
+        System.out.println("add Session" + userInfo);
+        
+        return "loginSuccess";
+    }
+}

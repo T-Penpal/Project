@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>내 주변 지도 보기</title>
+</head>
+
+<body>
+	<button onclick="getLocation()">위치 찾기</button>
+
+	<p id="demo"></p>
+
+
+	<div id="map" style="width:100%;height:780px;"></div>
+
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4f85ad1c7928c6c94137ae247fe07b3a"></script>
+
+	<script>
+		var x = document.getElementById("demo");
+
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else {
+				alter("Geolocation is not supported by this browser.");
+			}
+		}
+
+		function showPosition(position) {
+			x = "위도: " + position.coords.latitude +
+				"\n"+"경도: " + position.coords.longitude;
+			alert(x);
+
+			var container = document.getElementById('map');
+			var options = {
+				center: new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude),
+				level: 2
+			};
+
+			var map = new kakao.maps.Map(container, options);
+		}
+	</script>
+	<!-- 
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(35.15797992906391, 129.05865079425533),
+			level: 4
+		};
+
+		var map = new kakao.maps.Map(container, options);
+	</script>
+	-->
+
+</body>
+
+</html>

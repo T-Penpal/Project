@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Board</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			font-style: none;
+			list-style: none;
+			text-decoration: none;
+			color: black;
+		}
+
+		.container {
+			margin: 0 auto;
+			position: relative;
+			width: 1200px;
+			height: 5000px;
+		}
+
+		.menu {
+			position: absolute;
+			top: 200px;
+			width: 50px;
+			height: 150px;
+			position: fixed;
+			border: 1px solid black;
+			background-color: green;
+		}
+
+		.navigation {
+			width: 20%;
+			box-sizing: border-box;
+			border: 1px solid black;
+		}
+
+		/* board */
+		.board_container{
+			
+			width: 800px;
+			left: 100%;
+		}
+
+		.board_content {
+			width: 500px;
+		}
+
+		.board_content li {
+			display: flex;
+			float: left;
+			width: 50%;
+			box-sizing: border-box;
+			border: 1px solid black;
+			flex-direction: column;
+		}
+
+		.board_content li a {
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="menu">MENU</div>
+		<div class="navigation">
+			<ul>
+				<li>ALL</li>
+				<li>FREE</li>
+				<li>GAME</li>
+				<li>TRAVEL</li>
+			</ul>
+		</div>
+		<!-- board -->
+		<div class="board_container">
+			<ul class="board_content">
+				<div class="board_search">
+					<label name="search"></label>
+					<input type="text">
+					<button href="#">돋보기아이콘</button>
+					<select>
+						<option selected>Location</option>
+						<option>..1</option>
+						<option>..2</option>
+						<option>..3</option>
+					</select>
+					<select>
+						<option selected>Country</option>
+						<option>Korea</option>
+						<option>Japan</option>
+						<option>China</option>
+						<option>USA</option>
+					</select>
+				</div>
+				<li th:each="board : ${boardList}">
+					<a th:href="@{|/board/detail/${board.id}|}">
+						<a th:href="@{|/board/detail/${board.id}|}" th:text="${board.id}"></a>
+						<a th:text="${board.title}"></a>
+						<div th:text="${board.content}"></div>
+						<div th:text="${board.category}"></div>
+						<div th:text="${board.writer}"></div>
+						<div th:text="${board.createDate}"></div>
+					</a>
+				</li>
+			</ul>
+			<a th:href="@{/board/create}" class="btn btn-primary">UPLODE</a>
+		</div>
+		<!-- //board -->
+	</div>
+</body>
+
+</html>

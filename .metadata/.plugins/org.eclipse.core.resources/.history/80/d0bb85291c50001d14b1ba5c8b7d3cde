@@ -1,0 +1,6 @@
+package com.mysite.report1;
+
+@Controller
+public class LoginController {
+
+}

@@ -1,0 +1,37 @@
+package com.penpal.project;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.penpal.project.board.BoardService;
+import com.penpal.project.list.CategoryList;
+import com.penpal.project.list.CategoryListRepository;
+import com.penpal.project.list.CountryList;
+import com.penpal.project.list.CountryListRepository;
+import com.penpal.project.list.LocationList;
+import com.penpal.project.list.LocationListRepository;
+import com.penpal.project.member.Member;
+
+@SpringBootTest
+class ProjectApplicationTests {
+
+    @Autowired
+    private BoardService boardService;
+    private CategoryListRepository categoryListRepository;
+    private LocationListRepository locationListRepository;
+    private CountryListRepository countryListRepository;
+    
+    @Test
+    void testJpa() {
+        Member member = new Member();
+        for (int i = 1; i <= 300; i++) {
+            String title = String.format("테스트 데이터입니다:[%03d]", i);
+            String content = "내용무";
+            CategoryList category = categoryListRepository.findAll().get(0);
+            LocationList location = locationListRepository.findAll().get(0);
+            CountryList country = countryListRepository.findAll().get(0);
+            this.boardService.create(title, content, category, location, contry, member);
+        }
+    }
+}

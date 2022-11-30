@@ -1,0 +1,8 @@
+package com.panpal.project.board.category_list;
+
+@Getter
+@Setter
+
+public class CategoryList {
+
+}

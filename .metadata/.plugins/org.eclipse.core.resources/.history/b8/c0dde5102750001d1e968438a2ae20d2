@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<h2>로그인</h2>
+	<form action="result.html" th:action="@{/login}" th:object="${loginInput}" method="post""></form>
+	<table>
+	<tr>
+		<td>이메일</td>
+		<td><input type=" text" name="text" th:field="*{email}" /></td>
+	</tr>
+	</table>
+</body>
+
+</html>

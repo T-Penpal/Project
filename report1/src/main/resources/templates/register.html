@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style type="text/css">
+		.continer {
+			width: 500px;
+			margin: 0 auto;
+		}
+
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			text-align: left;
+		}
+		
+		input[type=text],
+		input[type=password],
+		input[type=email],
+		select {
+			display: inline-block;
+			width: 200px;
+		}
+
+		input[type=radio] {
+			margin-left: 50px;
+		}
+
+		input[type=checkbox] {
+			margin-right: 190px;
+		}
+
+		button {
+			padding: 5px;
+			margin: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div align="center">
+		<div class="continer">
+			<h1>사용자 등록화면</h1>
+			<form action="#" th:action="@{/register}" method="post" th:object="${user}">
+				<label>이름:</label>
+				<input type="text" maxlength="20" th:field="*{name}" /><br />
+
+				<label>E-mail:</label>
+				<input type="email" placeholder="example@green.co.kr" autocomplete="on" th:field="*{email}" /><br />
+
+				<label>비밀번호:</label>
+				<input type="password" th:field="*{password}" /><br />
+
+				<label>생일 (yyyy-mm-dd):</label>
+				<input type="text" th:field="*{birthday}" /><br />
+
+				<label>성별:</label>
+				<input type="radio" th:field="*{gender}" value="남자" />남자
+				<input type="radio" th:field="*{gender}" value="Female" />여자<br />
+
+				<label>직업:</label>
+				<select th:field="*{profession}">
+					<option th:each="p : ${listProfession}" th:value="${p}" th:text="${p}" />
+				</select>
+				<br />
+
+				<label>결혼여부:</label>
+				<input type="checkbox" th:field="*{married}" /><br />
+
+				<label>메모:</label>
+				<textarea rows="5" cols="25" th:field="*{note}"></textarea>
+				<br />
+
+				<button type="submit">전송</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

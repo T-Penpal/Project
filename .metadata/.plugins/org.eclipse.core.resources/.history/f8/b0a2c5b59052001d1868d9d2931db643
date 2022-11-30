@@ -1,0 +1,19 @@
+package com.penpal.project.member;
+
+import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Service
+public class MemberService {
+
+    private final MemberRepository memberRepository;
+    
+    public Member create(String userId, String userPw, String name, String email) {
+        Member user = new Member();
+        user.setId(userId);
+        
+        return user;
+    }
+}

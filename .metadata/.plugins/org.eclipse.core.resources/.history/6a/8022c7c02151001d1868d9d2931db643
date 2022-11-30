@@ -1,0 +1,54 @@
+package com.penpal.project.profile;
+
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.penpal.project.list.LocationList;
+import com.penpal.project.member.list.MemberFavorite;
+import com.penpal.project.member.list.MemberLanguage;
+import com.penpal.project.member.list.MemberSNS;
+
+public class Profile {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(unique = true , length = 30)
+	private Integer member_id;
+	
+	@Column(length=60)
+	private String nickname;
+	
+	private Integer gender;
+	
+	private Integer age;
+	
+	@ManyToOne(targetEntity = LocationList.class)
+	@JoinColumn(name = "location_name")
+	private String location;
+	
+	@ManyToOne(targetEntity = MemberSNS.class)
+	@JoinColumn(name = "member_sns_id")
+	private Integer sns;
+	
+	@ManyToOne(targetEntity = MemberFavorite.class)
+	@JoinColumn(name = "member_favorite_id")
+	private Integer favorite;
+	
+	@ManyToOne(targetEntity = MemberLanguage.class)
+	@JoinColumn(name = "member_language_id")
+	private Integer language;
+	
+	@Column(columnDefinition = "TEXT")
+	private String comment;
+	
+	private LocalDateTime lastDate;
+	
+}
