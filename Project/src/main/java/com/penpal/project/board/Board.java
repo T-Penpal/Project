@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -22,45 +21,40 @@ import com.penpal.project.member.Member;
 import lombok.Getter;
 import lombok.Setter;
 
-// 장유란 2022-10-21 게시판 기능
 @Getter
 @Setter
 @Entity
 public class Board {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(length = 50)
+	@Column(length = 20)
 	private String title;
 	
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
-	@ManyToOne(targetEntity = LocationList.class)
-	@JoinColumn(name = "location_name")
+	@ManyToOne
 	private LocationList location;
 	
-	@ManyToOne(targetEntity = CountryList.class)
-	@JoinColumn(name = "country_name")
+	@ManyToOne
 	private CountryList country;
 	
-	@ManyToOne(targetEntity = CategoryList.class)
-	@JoinColumn(name = "category_name")
+	@ManyToOne
 	private CategoryList category;
 	
-	// 장유란 writer 자료형 Integer -> Member 변경했습니다.
-	@ManyToOne(targetEntity = Member.class)
-	@JoinColumn(name = "member_id")
+	// by 장유란, author -> writer
+	@ManyToOne
 	private Member writer;
 	
 	private LocalDateTime createDate;
 	
+	// by 장유란, 수정일시
+	private LocalDateTime modifyDate;
+	
 	@OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
 	private List<Answer> answerList;
-	
-	
-
 	
 }

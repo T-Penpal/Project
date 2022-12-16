@@ -1,5 +1,0 @@
-package com.panpal.project.board;
-
-public interface BoardRepository extends JpaRepository<Board, Integer>{
-
-}

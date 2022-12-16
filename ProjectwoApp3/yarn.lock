@@ -5949,6 +5949,11 @@ react-native-beacons-manager@^1.0.7:
   resolved "https://registry.npmjs.org/react-native-beacons-manager/-/react-native-beacons-manager-1.0.7.tgz"
   integrity sha512-pTaVaM7lwQ2yiWAfU3lgsYvd+Y65YAKhID/axSmNqoPKAu2RdgLTUJUhYNYPOArWJCa6IdQ6OuMx5IqWl/gEIQ==
 
+react-native-ble-manager@^8.4.4:
+  version "8.4.4"
+  resolved "https://registry.npmjs.org/react-native-ble-manager/-/react-native-ble-manager-8.4.4.tgz"
+  integrity sha512-C9cvP8BvpUAUU8cPuwJD/UEwIqcPqG4frUIWVKkEtBmQok3JcXedHC/po5BpHXOXKhSbLqUtqiQmDuh+FL3T/g==
+
 react-native-codegen@^0.70.6:
   version "0.70.6"
   resolved "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.70.6.tgz"

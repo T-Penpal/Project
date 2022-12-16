@@ -1,69 +1,48 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>#Penpal</title>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script src="/js/main.js"></script>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
+<html layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
     <div id="wrap">
-        <header id="header" class="potion">
-            <h1 class="header_logo">
-                <a href="/">#Penpal</a>
-            </h1>
-            <div class="header_navi">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/users">Users</a></li>
-                    <li><a href="/community">Community</a></li>
-                </ul>
-            </div>
-            <div class="header_language">
-                <ul>
-                    <li>
-                        <select>
-                            <option value="Languages">Languages</option>
-                            <option value="Korean">Korean</option>
-                            <option value="English">English</option>
-                            <option value="Japanese">Japanese</option>
-                            <option value="Chinese">Chinese</option>
-                            <option value="French">French</option>
-                        </select>
-                    </li>
-                </ul>
-            </div>
-            <div class="header_login">
-                <a href="/login">Login</a>
-            </div>
-        </header>
         <section id="section01" class="potion">
             <div class="top_contents">
                 <div class="tc_left">
-                    <h1>Welcome to<br><span>#Penpal</span></h1><br><br>
-                    <h3>This website is 'Trendy Penpaling Website',<br>Regist your Profile, and Find new friends!</h3><br><br>
-                    <a href="/sign_up">START NOW!</a>
+                    <div sec:authorize="isAnonymous()">
+                        <h1>Welcome to<br><span>#Penpal</span></h1>
+                        <h3>This website is 'Trendy Penpaling Website',<br>Sign up easily, and enjoy all content!
+                        </h3><br><br>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <h1>Welcome to<br><span>#Penpal</span>,
+                            [[${loginMember.profile} != null ? ${loginMember.profile.nickname} : ${loginMember.name}]]!
+                        </h1>
+                        <h3>#Penpal's all the people share profiles,<br>So Regist your Profile, and Find new friends!
+                        </h3><br><br>
+                    </div>
+                    <a href="/member/signup" sec:authorize="isAnonymous()">START NOW!</a>
+                    <a th:if="${loginMember} != null"
+                        th:href="${loginMember.profile} != null ? @{|/users/profile/${loginMember.id}|} : @{/users/profile/create}"
+                        sec:authorize="isAuthenticated()">Go to Profile</a>
                 </div>
                 <div class="tc_right">
-                    <a href="#">Banner IMG Here</a>
+                    <a href="#">
+                        <img src="/images/penpal_banner.png" alt="Banner Image">
+                    </a>
                 </div>
             </div>
         </section>
         <section id="section02" class="potion">
             <div class="middle_contents">
-                <h2><a href="#">More new friends
-                    <span> -></span>
-                </a></h2>
+                <h2><a href="/users">More new friends<span><i class="fas fa-arrow-right"></i></span>
+                    </a></h2>
                 <div>
-                    <ul class="profile_list">
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
+                   <ul class="profile_list">
+                        <th:block th:each="profile : ${recentProfile}">
+                            <li>
+                                <a th:href="@{|/users/profile/${profile.id}|}">[[${profile.getNickname()}]]</a>
+                                <img id="preview" th:if="${profile.url}" th:href="@{|/users/profile/${profile.id}|}"
+                                    th:src="|/users/image?url=${profile.url}|" alt="프로필 이미지">
+                                <img id="preview" th:if="!${profile.url}">
+                            </li>
+                        </th:block>
                     </ul>
                 </div>
             </div>
@@ -71,26 +50,47 @@
         <section id="section03">
             <div class="middle_infodata">
                 <div class="info01">
-                    <div>All accounts<br>
-                        <h2>40k++</h2>
+                    <div>All Accounts<br>
+                        <h2>[[${memberCount}]]</h2>
                     </div>
                 </div>
                 <div class="info02">
-                    <div>Online users<br>
-                        <h2>90000+</h2>
+                    <div>Online Users<br>
+                        <h2>[[${onlineMemberCount}]]</h2>
                     </div>
                 </div>
                 <div class="info03">
                     <div>Sending Messages<br>
-                        <h2>110k++</h2>
+                        <h2>[[${messageCount}]]</h2>
                     </div>
                 </div>
             </div>
         </section>
         <section id="section04">
             <div class="bottom_contents">
+                <div class="continent_count">
+                    <span class="asia_count">
+                        [[${location.get(1).getProfileList().size()}]]
+                    </span>
+                    <span class="north_america_count">
+                        [[${location.get(3).getProfileList().size()}]]
+                    </span>
+                    <span class="south_america_count">
+                        [[${location.get(5).getProfileList().size()}]]
+                    </span>
+                    <span class="europe_count">
+                        [[${location.get(2).getProfileList().size()}]]
+                    </span>
+                    <span class="africa_count">
+                        [[${location.get(0).getProfileList().size()}]]
+                    </span>
+                    <span class="oceania_count">
+                        [[${location.get(4).getProfileList().size()}]]
+                    </span>
+                </div>
             </div>
         </section>
     </div>
-</body>
+</div>
+
 </html>

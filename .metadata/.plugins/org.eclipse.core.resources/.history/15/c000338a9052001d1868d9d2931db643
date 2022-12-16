@@ -1,7 +1,0 @@
-package com.penpal.project.member;
-
-@RequiredArgsConstructor
-@Service
-public class MemberService {
-
-}

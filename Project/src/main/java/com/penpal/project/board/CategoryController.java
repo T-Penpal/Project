@@ -34,7 +34,7 @@ public class CategoryController{
 //	}
 	@RequestMapping("/FREE")
     public String boardList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        Page<Board> paging = this.boardService.getList(page);
+        Page<Board> paging = this.boardService.getList(page, null, null, null, null);
         model.addAttribute("paging", paging);
 
         return "category/category_FREE";

@@ -1,8 +1,0 @@
-package com.mysite.report1;
-
-import org.springframework.stereotype.Controller;
-
-@Controller
-public class LoginController {
-
-}

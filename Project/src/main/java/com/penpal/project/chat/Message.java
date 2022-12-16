@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.penpal.project.member.Member;
 
 import lombok.Getter;
@@ -29,9 +32,11 @@ public class Message {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime sendDate;
-	
+
 	@ManyToOne
+	@JsonBackReference
 	private Room room;
 	
 }

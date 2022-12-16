@@ -1,6 +1,5 @@
 # #Penpal
-## 1. Setting
-- port 80
+## 1. 버전
 - Java 17
 - spring boot 2.7.4
 

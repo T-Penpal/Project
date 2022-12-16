@@ -1,9 +1,0 @@
-package com.mysite.report1;
-
-public class UserInfo {
-
-    private static final long serialVersionUID = -805775324677826249L;
-    private int id;
-    private String email;
-    private String name;
-}

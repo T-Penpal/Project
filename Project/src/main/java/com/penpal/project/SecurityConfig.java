@@ -21,12 +21,15 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+	private final LoginSuccessHandler loginSuccessHandler;
+	
+	
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeRequests().antMatchers("/**").permitAll()
         .and()
-            .csrf().ignoringAntMatchers("/h2-console/**")
+            .csrf().ignoringAntMatchers("/**")
         .and()
             .headers()
             .addHeaderWriter(new XFrameOptionsHeaderWriter(
@@ -35,6 +38,8 @@ public class SecurityConfig {
             .formLogin()
             .loginPage("/member/login")
             .defaultSuccessUrl("/")
+            // by 안준언, 로그인 성공시 Conn 필드 수정
+            .successHandler(loginSuccessHandler)
          .and()
             .logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
